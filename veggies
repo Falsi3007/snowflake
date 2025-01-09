@@ -1,0 +1,63 @@
+SELECT
+  *
+FROM
+  "GARDEN_PLANTS"."VEGGIES"."VEGETABLE_DETAILS"
+LIMIT
+  10;
+
+
+  delete from vegetable_details
+  where plant_name= 'Spinach' and root_depth_code='D' ;
+
+  select * from vegetable_details;
+
+
+  
+  select GRADER(step, (actual = expected), actual, expected, description) as graded_results from (
+ SELECT 'DWW07' as step
+ ,( select row_count 
+   from GARDEN_PLANTS.INFORMATION_SCHEMA.TABLES 
+   where table_name = 'VEGETABLE_DETAILS') as actual
+ , 41 as expected
+ , 'VEG_DETAILS row count' as description
+); 
+
+
+select GRADER(step, (actual = expected), actual, expected, description) as graded_results from ( 
+   SELECT 'DWW08' as step 
+   ,( select iff(count(*)=0, 0, count(*)/count(*))
+      from table(information_schema.query_history())
+      where query_text like 'execute notebook%Uncle Yer%') as actual 
+   , 1 as expected 
+   , 'Notebook success!' as description 
+); 
+
+select grader(step, (actual = expected), actual, expected, description) as graded_results from ( SELECT 'CMCW12' as step ,( select count(*) from SNOWFLAKE.ORGANIZATION_USAGE.ACCOUNTS where account_name = 'ACME' 
+ and region like 'GCP_%' and deleted_on is null) as actual , 1 as expected ,'ACME Account Added on GCP Platform' as description ); 
+
+ 
+select grader(step, (actual = expected), actual, expected, description) as graded_results from (
+SELECT 
+  'CMCW13' as step
+ ,( select count(*) 
+   from SNOWFLAKE.ORGANIZATION_USAGE.ACCOUNTS 
+   where account_name = 'AUTO_DATA_UNLIMITED' 
+   and region like 'AZURE_%'
+   and deleted_on is null) as actual
+ , 1 as expected
+ ,'ADU Account Added on AZURE' as description
+); 
+
+-- create or replace TABLE FLOWER_DETAILS (
+-- 	PLANT_NAME VARCHAR(25),
+-- 	ROOT_DEPTH_CODE VARCHAR(1)
+-- );
+
+create or replace TABLE FRUIT_DETAILS (
+	PLANT_NAME VARCHAR(25),
+	ROOT_DEPTH_CODE VARCHAR(1)
+);
+
+CREATE  OR REPLACE  [ { TEMP | TEMPORARY | VOLATILE } ] FILE FORMAT [ IF NOT EXISTS ] L9_CHALLENGE_FF
+  [ TYPE = { CSV | JSON | AVRO | ORC | PARQUET | XML | CUSTOM} [ formatTypeOptions ] ]
+  [ COMMENT = '<string_literal>' ]
