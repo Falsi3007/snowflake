@@ -1,0 +1,73 @@
+CREATE or replace TABLE Student (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    AGE INT
+);
+
+INSERT INTO Student (ROLL_NO, NAME, AGE) VALUES
+(1, 'Ram',18),
+(2, 'Ramesh', 18),
+(3, 'Sujit',  20),
+(4, 'Suresh',
+18);
+
+CREATE or replace TABLE Teacher (
+    ROLL_NO INT PRIMARY KEY,
+    NAMEf VARCHAR(50)
+);
+
+INSERT INTO Teacher (ROLL_NO, NAMEf) VALUES
+(2, ''),
+(2, null);
+
+select * from Student;
+
+select * from teacher;
+
+select student.roll_no,STUDENT.name,TEACHER.NAME from student left join teacher on STUDENT.ROLL_NO=TEACHER.id where name is not null;
+
+SELECT 
+    Name, 
+    COALESCE(Value, 'Empty') AS Value,
+    CASE 
+        WHEN COALESCE(Value, '') = '' THEN 'Blank Value'
+        WHEN Name = Value THEN 'Match'
+        ELSE 'No Match'
+    END AS comparison_result
+FROM your_table;
+
+
+
+SELECT 
+    Name, 
+    Value,
+    CASE 
+        WHEN Value IS NULL THEN 'Value is NULL'
+        WHEN Name = Value THEN 'Match'
+        ELSE 'No Match'
+    END AS comparison_result
+FROM your_table;
+
+
+CREATE or replace TABLE Teacher (
+    id varchar ,
+    NAME VARCHAR(50)
+);
+
+INSERT INTO Teacher (id, NAME) VALUES
+('abc', 'abc'),
+('abc', ''),
+('abc',null);
+
+select * from TEACHER;
+
+
+SELECT 
+    Name, 
+    COALESCE(id, '') AS id,
+    CASE 
+        WHEN COALESCE(id, '') = '' THEN False
+        WHEN Name = id THEN True
+        ELSE FALSE
+    END AS comparison_result
+FROM teacher;
